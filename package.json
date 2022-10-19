@@ -1,5 +1,5 @@
 {
-  "name": "pwa-starter-kit",
+  "name": "pwa-routing-demo",
   "type": "module",
   "version": "1.0.0",
   "description": "A stripped down Polymer/pwa-starter-kit",
@@ -8,7 +8,7 @@
     "Thad Humphries"
   ],
   "license": "BSD-3-Clause",
-  "repository": "johnthad/pwa-starter-kit",
+  "repository": "johnthad/pwa-routing-demo",
   "scripts": {
     "start": "web-dev-server",
     "build": "rimraf dist && rollup -c rollup.config.js",
