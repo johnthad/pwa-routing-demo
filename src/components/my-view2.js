@@ -9,37 +9,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 import { html } from 'lit';
-import { connect } from 'pwa-helpers/connect-mixin.js';
 import { PageViewElement } from './page-view-element.js';
-
-// This element is connected to the Redux store.
-import { store } from '../store.js';
-
-// These are the actions needed by this element.
-import { increment, decrement } from '../actions/counter.js';
-
-// We are lazy loading its reducer.
-import counter from '../reducers/counter.js';
-
-// These are the elements needed by this element.
-import './counter-element.js';
 
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
 
-store.addReducers({
-  counter,
-});
-
-class MyView2 extends connect(store)(PageViewElement) {
-  static get properties() {
-    return {
-      // This is the data from the store.
-      _clicks: { type: Number },
-      _value: { type: Number },
-    };
-  }
-
+class MyView2 extends PageViewElement {
   static get styles() {
     return [SharedStyles];
   }
@@ -47,27 +22,26 @@ class MyView2 extends connect(store)(PageViewElement) {
   render() {
     return html`
       <section>
-        <h2>Redux example: simple counter</h2>
-        <div class="circle">${this._value}</div>
-        <p>
-          This page contains a reusable <code>&lt;counter-element&gt;</code>.
-          The element is not built in a Redux-y way (you can think of it as
-          being a third-party element you got from someone else), but this page
-          is connected to the Redux store. When the element updates its counter,
-          this page updates the values in the Redux store, and you can see the
-          current value of the counter reflected in the bubble above.
-        </p>
-        <br /><br />
+        <h2>Static page #2</h2>
+        <p>This is a text-only page.</p>
+        <p>It doesn't do anything other than display some static text.</p>
       </section>
       <section>
+        <h2>Welcome</h2>
         <p>
-          <counter-element
-            value="${this._value}"
-            clicks="${this._clicks}"
-            @counter-incremented="${this._counterIncremented}"
-            @counter-decremented="${this._counterDecremented}"
-          >
-          </counter-element>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
+          nisi orci. Maecenas sollicitudin diam in diam efficitur cursus. Morbi
+          sollicitudin in justo tincidunt placerat. Integer tincidunt elementum
+          nisi, eu ornare dolor lacinia eget. Fusce pulvinar massa eget odio
+          placerat, commodo molestie ipsum tempus. Class aptent taciti sociosqu
+          ad litora torquent per conubia nostra, per inceptos himenaeos.
+          Suspendisse porttitor id purus eu cursus. Suspendisse arcu nulla,
+          mattis vel hendrerit et, malesuada a elit. Nam at diam ornare, aliquet
+          est sed, malesuada metus. Cras nec enim vel nibh tincidunt euismod ut
+          et enim. Etiam pharetra eros in sodales iaculis. Duis sagittis urna et
+          cursus mollis. Cras tempor rutrum est. Praesent sollicitudin ligula at
+          laoreet placerat. Praesent tortor dui, semper in sapien non, pharetra
+          luctus turpis.
         </p>
       </section>
     `;
@@ -80,20 +54,6 @@ class MyView2 extends connect(store)(PageViewElement) {
 
   firstUpdated(changedProperties) {
     console.log('firstUpdated my-view2');
-  }
-
-  _counterIncremented() {
-    store.dispatch(increment());
-  }
-
-  _counterDecremented() {
-    store.dispatch(decrement());
-  }
-
-  // This is called every time something is updated in the store.
-  stateChanged(state) {
-    this._clicks = state.counter.clicks;
-    this._value = state.counter.value;
   }
 }
 

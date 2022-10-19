@@ -8,113 +8,40 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html, css } from 'lit';
-import { connect } from 'pwa-helpers/connect-mixin.js';
+import { html } from 'lit';
 import { PageViewElement } from './page-view-element.js';
-
-// This element is connected to the Redux store.
-import { store } from '../store.js';
-
-// These are the actions needed by this element.
-import { checkout } from '../actions/shop.js';
-
-// We are lazy loading its reducer.
-import shop, { cartQuantitySelector } from '../reducers/shop.js';
-
-// These are the elements needed by this element.
-import './shop-products.js';
-import './shop-cart.js';
 
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles.js';
-import { ButtonSharedStyles } from './button-shared-styles.js';
-import { addToCartIcon } from './my-icons.js';
 
-store.addReducers({
-  shop,
-});
-
-class MyView3 extends connect(store)(PageViewElement) {
-  static get properties() {
-    return {
-      // This is the data from the store.
-      _quantity: { type: Number },
-      _error: { type: String },
-    };
-  }
-
+class MyView3 extends PageViewElement {
   static get styles() {
-    return [
-      SharedStyles,
-      ButtonSharedStyles,
-      css`
-        button {
-          border: 2px solid var(--app-dark-text-color);
-          border-radius: 3px;
-          padding: 8px 16px;
-        }
-
-        button:hover {
-          border-color: var(--app-primary-color);
-          color: var(--app-primary-color);
-        }
-
-        .cart,
-        .cart svg {
-          fill: var(--app-primary-color);
-          width: 64px;
-          height: 64px;
-        }
-
-        .circle.small {
-          margin-top: -72px;
-          width: 28px;
-          height: 28px;
-          font-size: 16px;
-          font-weight: bold;
-          line-height: 30px;
-        }
-      `,
-    ];
+    return [SharedStyles];
   }
 
   render() {
     return html`
       <section>
-        <h2>Redux example: shopping cart</h2>
-        <div class="cart">
-          ${addToCartIcon}
-          <div class="circle small">${this._quantity}</div>
-        </div>
-        <p>
-          This is a slightly more advanced Redux example, that simulates a
-          shopping cart: getting the products, adding/removing items to the
-          cart, and a checkout action, that can sometimes randomly fail (to
-          simulate where you would add failure handling).
-        </p>
-        <p>
-          This view, as well as its 2 child elements,
-          <code>&lt;shop-products&gt;</code> and
-          <code>&lt;shop-cart&gt;</code> are connected to the Redux store.
-        </p>
+        <h2>Static page #3</h2>
+        <p>This is a text-only page.</p>
+        <p>It doesn't do anything other than display some static text.</p>
       </section>
       <section>
-        <h3>Products</h3>
-        <shop-products></shop-products>
-
-        <br />
-        <h3>Your Cart</h3>
-        <shop-cart></shop-cart>
-
-        <div>${this._error}</div>
-        <br />
+        <h2>Welcome</h2>
         <p>
-          <button
-            ?hidden="${this._quantity == 0}"
-            @click="${this._checkoutButtonClicked}"
-          >
-            Checkout
-          </button>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac
+          nisi orci. Maecenas sollicitudin diam in diam efficitur cursus. Morbi
+          sollicitudin in justo tincidunt placerat. Integer tincidunt elementum
+          nisi, eu ornare dolor lacinia eget. Fusce pulvinar massa eget odio
+          placerat, commodo molestie ipsum tempus. Class aptent taciti sociosqu
+          ad litora torquent per conubia nostra, per inceptos himenaeos.
+          Suspendisse porttitor id purus eu cursus. Suspendisse arcu nulla,
+          mattis vel hendrerit et, malesuada a elit. Nam at diam ornare, aliquet
+          est sed, malesuada metus. Cras nec enim vel nibh tincidunt euismod ut
+          et enim. Etiam pharetra eros in sodales iaculis. Duis sagittis urna et
+          cursus mollis. Cras tempor rutrum est. Praesent sollicitudin ligula at
+          laoreet placerat. Praesent tortor dui, semper in sapien non, pharetra
+          luctus turpis.
         </p>
       </section>
     `;
@@ -127,16 +54,6 @@ class MyView3 extends connect(store)(PageViewElement) {
 
   firstUpdated(changedProperties) {
     console.log('firstUpdated my-view3');
-  }
-
-  _checkoutButtonClicked() {
-    store.dispatch(checkout());
-  }
-
-  // This is called every time something is updated in the store.
-  stateChanged(state) {
-    this._quantity = cartQuantitySelector(state);
-    this._error = state.shop.error;
   }
 }
 
