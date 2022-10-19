@@ -1,0 +1,83 @@
+{
+  "name": "pwa-starter-kit",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A stripped down Polymer/pwa-starter-kit",
+  "contributors": [
+    "The Polymer Authors",
+    "Thad Humphries"
+  ],
+  "license": "BSD-3-Clause",
+  "repository": "johnthad/pwa-starter-kit",
+  "scripts": {
+    "start": "web-dev-server",
+    "build": "rimraf dist && rollup -c rollup.config.js",
+    "start:build": "npm run build && es-dev-server --root-dir dist --app-index index.html --open --compatibility none",
+    "lint:eslint": "eslint --ext .js,.html . --ignore-path .gitignore",
+    "format:eslint": "eslint --ext .js,.html . --fix --ignore-path .gitignore",
+    "lint:prettier": "prettier \"**/*.js\" --check --ignore-path .gitignore",
+    "format:prettier": "prettier \"**/*.js\" --write --ignore-path .gitignore",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "format": "npm run format:eslint && npm run format:prettier",
+    "test": "web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch",
+    "storybook": "start-storybook",
+    "storybook:build": "build-storybook"
+  },
+  "dependencies": {
+    "lit": "^2.2.2",
+    "pwa-helpers": "^0.9.0",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.1.5",
+    "@open-wc/building-rollup": "^2.0.1",
+    "@open-wc/demoing-storybook": "^2.4.7",
+    "@open-wc/eslint-config": "^7.0.0",
+    "@open-wc/testing": "^3.1.2",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "@rollup/plugin-replace": "^2.3.4",
+    "@web/dev-server": "^0.1.21",
+    "@web/rollup-plugin-html": "^1.10.1",
+    "@web/rollup-plugin-import-meta-assets": "^1.0.7",
+    "@web/test-runner": "^0.13.16",
+    "deepmerge": "^4.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.3.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.56.2",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-workbox": "^6.2.0",
+    "update-by-scope": "^1.1.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@open-wc",
+      "prettier"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "all",
+    "arrowParens": "avoid"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
